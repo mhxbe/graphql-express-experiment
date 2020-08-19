@@ -39,8 +39,8 @@ Get line by id
 Add a stop
 
 ```
-mutation addStop ($stopId: String!, $name: String!) {
-  createStop(stopId: $stopId, name: $name) {
+mutation addStop($stop: StopInput!) {
+  createStop(stop: $stop) {
     id
     name
   }
@@ -48,7 +48,7 @@ mutation addStop ($stopId: String!, $name: String!) {
 
 // QUERY VARIABLES
 {
-  "stopId": "1000", "name": "Brussel Beurs"
+  "stop": {"stopId": "9000", "name": "Gent"}
 }
 ```
 

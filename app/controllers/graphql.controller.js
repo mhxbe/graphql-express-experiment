@@ -25,7 +25,11 @@ const schema = buildSchema(`
     lineColors(lineId: String!): LineColors
   }
   type Mutation {
-    createStop(stopId: String!, name: String!): [Stop]
+    createStop(stop: StopInput!): [Stop]
+  }
+  input StopInput {
+    stopId: String!
+    name: String!
   }
   type Stop {
     id: String!,
@@ -46,8 +50,7 @@ const schema = buildSchema(`
 const rootValue = {
   stops: getStops(),
   stop: (graphqlInput) => getStopById(graphqlInput && graphqlInput.stopId),
-  createStop: (graphqlInput) =>
-    createStop(graphqlInput.stopId, graphqlInput.name),
+  createStop: (graphqlInput) => createStop(graphqlInput.stop),
   lines: getLines(),
   line: (graphqlInput) => getLineById(graphqlInput && graphqlInput.lineId),
   linesColors: getLinesColors(),

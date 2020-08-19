@@ -22,8 +22,7 @@ router
     return res.status(200).json(stop);
   })
   .post('/', (req, res) => {
-    const { stopId, name } = req.body;
-    const stops = createStop(stopId, name);
+    const stops = createStop(req.body);
     return res.status(200).json(stops);
   });
 
