@@ -1,5 +1,8 @@
 # GraphQL Express Experiment
 
+A small experiment with bare-bones GraphQL.
+It's possible this experiment will be extended with [Apollo GraphQL](https://www.apollographql.com/) examples but for now, it's _"just GraphQL"_.
+
 ## Setup
 
 ```
@@ -8,7 +11,7 @@ npm start
 open http://localhost:3413
 ```
 
-## Examples
+## Basic Examples
 
 ### Query
 
@@ -51,6 +54,29 @@ mutation addStop($stop: StopInput!) {
   "stop": {"stopId": "9000", "name": "Gent"}
 }
 ```
+
+## Advanced Example
+
+In this example, a nested query is made so we can merge/enrich our request from different data sources.
+
+```
+{
+  EnrichedLines {
+    id
+    colors {
+      text
+      background
+      border
+    }
+    stops {
+      id
+      name
+    }
+  }
+}
+```
+
+If you want to test this, make sure to swap `simpleSchema` with `advancedSchema` in `graphql.controller.js`.
 
 ## License
 
