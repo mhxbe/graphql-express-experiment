@@ -14,3 +14,8 @@ export function getStops() {
 export function getStopById(stopId) {
   return { id: stopId, ...STOPS[stopId] };
 }
+
+export function createStop(stopId, name) {
+  STOPS[stopId] = { name };
+  return getStops();
+}

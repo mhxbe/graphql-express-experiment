@@ -1,7 +1,11 @@
 import GraphQL from 'graphql';
 import ExpressGraphQL from 'express-graphql';
 
-import { getStops, getStopById } from '../services/stops.service.js';
+import {
+  getStops,
+  getStopById,
+  createStop,
+} from '../services/stops.service.js';
 import { getLines, getLineById } from '../services/lines.service.js';
 import {
   getLinesColors,
@@ -19,6 +23,9 @@ const schema = buildSchema(`
     lines: [Line],
     linesColors: [LineColors],
     lineColors(lineId: String!): LineColors
+  }
+  type Mutation {
+    createStop(stopId: String!, name: String!): [Stop]
   }
   type Stop {
     id: String!,
@@ -39,6 +46,8 @@ const schema = buildSchema(`
 const rootValue = {
   stops: getStops(),
   stop: (graphqlInput) => getStopById(graphqlInput && graphqlInput.stopId),
+  createStop: (graphqlInput) =>
+    createStop(graphqlInput.stopId, graphqlInput.name),
   lines: getLines(),
   line: (graphqlInput) => getLineById(graphqlInput && graphqlInput.lineId),
   linesColors: getLinesColors(),

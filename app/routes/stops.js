@@ -1,5 +1,9 @@
 import express from 'express';
-import { getStops, getStopById } from '../services/stops.service.js';
+import {
+  getStops,
+  getStopById,
+  createStop,
+} from '../services/stops.service.js';
 
 const { Router } = express;
 const router = Router();
@@ -16,6 +20,11 @@ router
       return res.status(404).json({ msg: `Stop ${stopId} not found.` });
     }
     return res.status(200).json(stop);
+  })
+  .post('/', (req, res) => {
+    const { stopId, name } = req.body;
+    const stops = createStop(stopId, name);
+    return res.status(200).json(stops);
   });
 
 export { router as stopsRouter };
