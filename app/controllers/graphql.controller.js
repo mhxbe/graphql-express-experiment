@@ -1,4 +1,3 @@
-import GraphQL from 'graphql';
 import ExpressGraphQL from 'express-graphql';
 
 import {
@@ -12,54 +11,24 @@ import {
   getLineColorsByLineId,
 } from '../services/colors.service.js';
 
-const { buildSchema } = GraphQL;
+import { simpleSchema /* advancedSchema */ } from './graphql.schemas.js';
+
 const { graphqlHTTP } = ExpressGraphQL;
 
-const schema = buildSchema(`
-  type Query {
-    stop(stopId: String!): Stop
-    stops: [Stop],
-    line(lineId: String!): Line
-    lines: [Line],
-    linesColors: [LineColors],
-    lineColors(lineId: String!): LineColors
-  }
-  type Mutation {
-    createStop(stop: StopInput!): [Stop]
-  }
-  input StopInput {
-    stopId: String!
-    name: String!
-  }
-  type Stop {
-    id: String!,
-    name: String!,
-  }
-  type Line {
-    id: String!,
-    name: String!,
-  }
-  type LineColors {
-    id: String!,
-    background: String!,
-    border: String!,
-    text: String!,
-  }
-`);
-
 const rootValue = {
-  stops: getStops(),
+  stops: () => getStops(),
   stop: (graphqlInput) => getStopById(graphqlInput && graphqlInput.stopId),
   createStop: (graphqlInput) => createStop(graphqlInput.stop),
-  lines: getLines(),
+  lines: () => getLines(),
   line: (graphqlInput) => getLineById(graphqlInput && graphqlInput.lineId),
-  linesColors: getLinesColors(),
+  linesColors: () => getLinesColors(),
   lineColors: (graphqlInput) =>
     getLineColorsByLineId(graphqlInput && graphqlInput.lineId),
 };
 
 export default graphqlHTTP({
   graphiql: true,
-  schema,
+  schema: simpleSchema,
+  // schema: advancedSchema,
   rootValue,
 });
