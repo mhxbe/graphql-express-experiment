@@ -1,0 +1,37 @@
+{
+  "name": "graphql-express-experiment",
+  "version": "0.1.0",
+  "description": "Experimenting with GraphQL in an Express app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "lint:js": "eslint \"app/**\"",
+    "start": "nodemon app/server.js",
+    "test": "echo \"Error: no test specified\""
+  },
+  "keywords": [
+    "express",
+    "graphql"
+  ],
+  "author": "Mike Henderyckx",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mhxbe/graphql-express-experiment.git"
+  },
+  "dependencies": {
+    "express": "4.17.1",
+    "express-graphql": "0.11.0",
+    "graphql": "15.3.0"
+  },
+  "devDependencies": {
+    "eslint": "7.4.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "husky": "4.2.5",
+    "nodemon": "2.0.4",
+    "prettier": "2.0.5",
+    "pretty-quick": "2.0.1"
+  }
+}
